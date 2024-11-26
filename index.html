@@ -3,11 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,200&display=swap" rel="stylesheet">
     <title>SBA316</title>
+    <label for=""><input type="text"></label>
 </head>
 <body>
-    <h1>SBA316</h1>
+   <div class="container">
+    <h1>Text Analyze App.</h1>
+    <div class="buffer"></div>
+        <div class="main">
+            <div class="mainLeft">
+                    <p class="textAnlz" contenteditable="true" placeholder="">
+                        <img src="images/delete.png" alt="">
+
+                    </p>
+            </div>
+            <div class="mainright" >
+                <ul class="listItems" id="listItems">
+                    <li>sdfsdfdsfs</li>
+                    <li>sdfsdfdsfs</li>
+                    <li>sdfsdfdsfs</li>
+                    <li>sdfsdfdsfs</li>
+                    <li>sdfsdfdsfs</li>
+                    <li>sdfsdfdsfs</li>
+                    <li>sdfsdfdsfs</li>
+                </ul>
+            </div>
+        </div>
+   
+     <div style="margin-top:20px;width: 600px;display: flex; justify-content: space-between;">
+        <button class="btn" id="btnPaste">Paste</button>
+        <button class="btn">Analyze</button>
+        <button class="btn">upload</button>
+        <button class="btn" id="btnClear">Clear</button>
+     </div>
+          
+
+     
+   </div>
 
     
+    
+    
+
+   <script src="index.js">
+
+   </script> 
 </body>
 </html>
