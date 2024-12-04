@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,200&display=swap" rel="stylesheet">
     <title>SBA316</title>
-    <label for=""><input type="text"></label>
+
 </head>
 <body>
    <div class="container">
@@ -14,10 +14,14 @@
     <div class="buffer"></div>
         <div class="main">
             <div class="mainLeft">
-                    <p class="textAnlz" contenteditable="true" placeholder="">
+                <textarea name="textarea1" id="textarea1">
+
+                    
+                </textarea>
+                    <!-- <p class="textAnlz" id = "textAnlz" contenteditable="true" placeholder="">
                         <img src="images/delete.png" alt="">
 
-                    </p>
+                    </p> -->
             </div>
             <div class="mainright" >
                 <ul class="listItems" id="listItems">
@@ -34,7 +38,7 @@
    
      <div style="margin-top:20px;width: 600px;display: flex; justify-content: space-between;">
         <button class="btn" id="btnPaste">Paste</button>
-        <button class="btn">Analyze</button>
+        <button class="btn" id="btnAnlyz">Analyze</button>
         <button class="btn">upload</button>
         <button class="btn" id="btnClear">Clear</button>
      </div>
@@ -47,7 +51,7 @@
     
     
 
-   <script src="index.js">
+   <script src="./index.js">
 
    </script> 
 </body>

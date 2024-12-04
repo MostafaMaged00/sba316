@@ -44,7 +44,7 @@ h1{
 }
 .mainright{
     /* border: 1px solid rgb(223, 10, 10); */
-    width: 275px;
+    width: 50%;
     height: 550px;
     display: flex;
     padding-top: 20px;
@@ -55,26 +55,37 @@ h1{
     color: black;
      
 }
-.textAnlz {
+
+#textarea1{
+
+    width: 100%;            /* Set the width to fill the div */
+    height: 100%;           /* Set the height to fill the div */
+    border: none;           /* Remove border from textarea */
+    resize: none;           /* Prevent resizing of the textarea */
+    padding: 10px;          /* Optional padding */
+    box-sizing: border-box; /* Ensure padding is included in the width/height calculation */
+}
+/* .textAnlz {
     position: relative;
     width: 100%;
     max-width: 300px;
-    min-height: 500px;
+    max-height: 500px;
     padding: 20px;
     margin: 20px 0;
     outline: 0;
+    color: black;
    
     
     
-}
+} */
 
-.textAnlz img{
+/* .textAnlz img{
     width: 25px;
     position: absolute;
     top: 1px;
     right: 15px;
 
-}
+} */
 .btn-box{
     margin-top: 25px;
     border: 1px solid white;
