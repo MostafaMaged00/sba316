@@ -9,7 +9,11 @@ const textarea1 = document.getElementById("textarea1");
 btnPaste.addEventListener("click", async () => {
   try {
     const text = await navigator.clipboard.readText();
-    textarea1.value = text;
+    console.log(text.length);
+    // if (text.length > 500) {
+    //   text = text.slice(0, 500);
+    // }
+    textarea1.value = text.slice(0, 1000);
     btnPaste.classList.add("inactive");
     console.log("Text pasted.");
   } catch (error) {
@@ -37,57 +41,98 @@ btnAnlyz.addEventListener("click", function () {
 
 //create a function to analyze text
 function getStat(text) {
-  // Check if the input is a valid string
+  // Ensure input is a string
   if (typeof text !== "string") {
-    return "Input should be a string.";
+    throw new Error("text must be a string");
+  }
+  if (text.length > 500) {
+    text = text.slice(0, 500);
   }
 
-  const stopwords = ["a", "The"];
+  // List of common words to ignore in unique word counts and most repeated word calculation
+  const stopWords = new Set([
+    "is",
+    "and",
+    "the",
+    "of",
+    "in",
+    "a",
+    "to",
+    "for",
+    "on",
+    "with",
+    "at",
+    "by",
+    "an",
+    "as",
+    "was",
+    "this",
+    "that",
+    "after",
+    "be",
+    "",
+  ]);
 
-  // Clean the text: Remove non-alphanumeric characters (except spaces), and convert to lowercase
-  const cleanedText = text.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "");
+  // Clean the input by removing extra spaces, trimming, and collapsing multiple spaces
+  const cleanedInput = text.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "");
 
-  // Split the cleaned text into an array of words
-  const words = cleanedText.split(/\s+/).filter(Boolean); // Split by spaces and remove empty strings
+  // Split the string into words
+  const words = cleanedInput.split(/\s+/);
 
-  const wordCount = words.length;
+  // Total word count
+  const totalWords = words.length;
 
-  // Create an object to store the frequency of each word
-  const wordFrequency = {};
+  // Create a frequency map to count occurrences of each word (ignoring stop words)
+  const wordCount = {};
 
   words.forEach((word) => {
-    wordFrequency[word] = (wordFrequency[word] || 0) + 1;
+    const cleanedWord = word.toLowerCase(); // Convert to lowercase to avoid case-sensitivity
+    if (!stopWords.has(cleanedWord)) {
+      wordCount[cleanedWord] = (wordCount[cleanedWord] || 0) + 1;
+    }
   });
 
-  // Count unique words (length of wordFrequency object)
-  const uniqueWordCount = Object.keys(wordFrequency).length;
+  console.log(wordCount);
+  console.log(typeof wordCount);
 
-  // Find the most frequent word (if any)
-  let mostFrequentWord = null;
-  let highestFrequency = 0;
+  // Count unique words (excluding stop words)
+  const uniqueWordsCount = Object.keys(wordCount).length;
 
-  for (const [word, frequency] of Object.entries(wordFrequency)) {
-    if (frequency > highestFrequency) {
-      highestFrequency = frequency;
-      mostFrequentWord = word;
+  // Find the most repeated word (excluding stop words)
+  let mostRepeatedWord = "";
+  let maxCount = 0;
+  for (const [word, count] of Object.entries(wordCount)) {
+    if (count > maxCount) {
+      mostRepeatedWord = word;
+      maxCount = count;
     }
   }
-
   const ul = document.getElementById("listItems");
 
   const li1 = document.createElement("li");
-  li1.textContent = `Word Count : ${wordCount}`;
+  li1.textContent = `Word Count : ${totalWords}`;
   ul.appendChild(li1);
 
   const li2 = document.createElement("li");
-  li2.textContent = `unique Word Count: ${uniqueWordCount}`;
+  li2.textContent = `unique Word Count: ${uniqueWordsCount}`;
   ul.appendChild(li2);
 
-  const li3 = document.createElement("li");
-  li3.textContent = `Most Frequent Word: ${mostFrequentWord}`;
-  ul.appendChild(li3);
+  if (maxCount > 1) {
+    const li3 = document.createElement("li");
+    li3.textContent = `Most Frequent Word: `;
+    ul.appendChild(li3);
 
-  const li4 = document.createElement("li");
-  li4.textContent = `Highest Frequency: ${highestFrequency}`;
-  ul.appendChild(li4);
+    const li4 = document.createElement("li");
+    li4.textContent = `Highest Frequency:`;
+    ul.appendChild(li4);
+  }
+
+  Object.entries(wordCount)
+    .filter(([key, value]) => value > 1)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([key, value]) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = ` \t\t\t${key}: \t ${value}`;
+      ul.appendChild(listItem);
+    });
 }
