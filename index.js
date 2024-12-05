@@ -5,11 +5,11 @@ const textParag = document.getElementById("textAnlz");
 
 const textarea1 = document.getElementById("textarea1");
 
-//create a event to past text from clipboard
+//create a event to past text from clipboard to textarea
 btnPaste.addEventListener("click", async () => {
   try {
     const text = await navigator.clipboard.readText();
-    textParag.innerText = text;
+    textarea1.value = text;
     btnPaste.classList.add("inactive");
     console.log("Text pasted.");
   } catch (error) {
@@ -19,25 +19,30 @@ btnPaste.addEventListener("click", async () => {
 
 //clear function
 btnClear.addEventListener("click", function () {
-  console.log("test");
-
+  // console.log("test");
   //clear list items
   listItems.innerHTML = "";
-  textParag.innerText = "";
+  textarea1.value = "";
+  // textParag.innerText = "";
+  btnPaste.classList.remove("inactive");
+  btnAnlyz.classList.remove("inactive");
 });
 
 const btnAnlyz = document.getElementById("btnAnlyz");
-
 btnAnlyz.addEventListener("click", function () {
-  const text = textParag.innerText;
+  const text = textarea1.value;
   getStat(text);
+  btnAnlyz.classList.add("inactive");
 });
 
+//create a function to analyze text
 function getStat(text) {
   // Check if the input is a valid string
   if (typeof text !== "string") {
     return "Input should be a string.";
   }
+
+  const stopwords = ["a", "The"];
 
   // Clean the text: Remove non-alphanumeric characters (except spaces), and convert to lowercase
   const cleanedText = text.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "");
@@ -68,8 +73,21 @@ function getStat(text) {
     }
   }
 
-  console.log(`wordCount: ${wordCount}`);
-  console.log(`uniqueWordCount: ${uniqueWordCount}`);
-  console.log(`mostFrequentWord: ${mostFrequentWord}`);
-  console.log(`highestFrequency: ${highestFrequency}`);
+  const ul = document.getElementById("listItems");
+
+  const li1 = document.createElement("li");
+  li1.textContent = `Word Count : ${wordCount}`;
+  ul.appendChild(li1);
+
+  const li2 = document.createElement("li");
+  li2.textContent = `unique Word Count: ${uniqueWordCount}`;
+  ul.appendChild(li2);
+
+  const li3 = document.createElement("li");
+  li3.textContent = `Most Frequent Word: ${mostFrequentWord}`;
+  ul.appendChild(li3);
+
+  const li4 = document.createElement("li");
+  li4.textContent = `Highest Frequency: ${highestFrequency}`;
+  ul.appendChild(li4);
 }

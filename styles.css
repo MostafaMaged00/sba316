@@ -64,6 +64,8 @@ h1{
     resize: none;           /* Prevent resizing of the textarea */
     padding: 10px;          /* Optional padding */
     box-sizing: border-box; /* Ensure padding is included in the width/height calculation */
+    color: #888; /* Light grey color for the placeholder */
+    opacity: 1; /* Ensure the placeholder is visible */
 }
 /* .textAnlz {
     position: relative;
@@ -116,3 +118,14 @@ h1{
     background-color: #751580;
 
 }
+
+.inactive {
+    background-color: gray;
+    cursor: not-allowed;
+    pointer-events: none; 
+  }
+
+  /* Cancel hover effect when button is inactive */
+  .inactive:hover {
+    background-color: gray;  
+  }
